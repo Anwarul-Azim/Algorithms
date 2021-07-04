@@ -1,4 +1,6 @@
 import math
+from numpy import random
+from time import time
 def insertion_sort (l):    
     for i in range(1, len(l)):
         key = l[i]
@@ -37,18 +39,14 @@ def bubble_sort(l):
             break
     return l
 
-def max_subarray(l):
-    for i in range(len(l)-1):
-        s =str(l[i])
-        for j in range ((i+1),len(l)):
-            s = s + " "+str(l[j])
-            print(s)
+
          
 a=[2,1,3,4,5,6,7] 
 #a = max_subarray(a)  
 #print(a)
 
 def max_crossing_subarray(a,low,high,mid):
+    
     left_sum = -99999999999
     sum_ = 0
     left = 0
@@ -57,8 +55,7 @@ def max_crossing_subarray(a,low,high,mid):
         if(sum_ > left_sum):                                
             left_sum = sum_
             left = i
-        else:
-            break
+        
             
     right_sum = -99999999999
     sum_ = 0
@@ -68,13 +65,13 @@ def max_crossing_subarray(a,low,high,mid):
         if(sum_ > right_sum):                                  
             right_sum = sum_
             right = i
-        else:
-            break
+        
             
     return left,right, (left_sum + right_sum)
     
 
 def max_subarray_greedy (a, low, high):
+    
     if(low == high):
         return low,high,a[0]
     else:
@@ -93,16 +90,36 @@ def max_subarray_greedy (a, low, high):
             return (cross_low, cross_high, cross_sum)
     
 
-a=[1,2,3,4]           
-print(max_subarray_greedy(a,0,len(a)-1)       )
     
 
+def max_subarray(l):
+    max_ = -9999999999
+    low = 0
+    high = 0
+    for i in range(len(l)-1):
+        s = l[i]
+        for j in range ((i+1),len(l)):
+            s = s + l[j]
+            if(s > max_):
+                max_ = s
+                low = i
+                high = j
+    return low, high, max_
+
     
-    
 
 
+a=[]
+for i in range(30000):
+    a.append(random.randint(-100,100))
+x = time()           
+print(max_subarray_greedy(a,0,len(a)-1))
+print("dc",time() - x)
 
-
+x = time() 
+print(max_subarray(a))
+print("ndc",time() - x)
+#print(a)
 
 
 
