@@ -108,7 +108,7 @@ def max_subarray(l):
 
     
 
-
+"""
 a=[]
 for i in range(30000):
     a.append(random.randint(-100,100))
@@ -120,9 +120,63 @@ x = time()
 print(max_subarray(a))
 print("ndc",time() - x)
 #print(a)
+"""
+
+def merge (left, right):
+    a=[]
+    n=0
+    l=0
+    r=0
+    flag = 0
+    marker = []
+    
+    limit = len(left) + len(right)
+    while(n < limit ):   
+      if(left[l] <= right[r] ):          
+          a.append(left[l])
+          if(l+1 != len(left)):
+              l+=1
+          else:
+              flag = right
+              marker = r
+              break
+      else:
+          a.append(right[r])
+          if(r+1 != len(right)):
+              r+=1
+          else:
+              flag = left
+              marker = l
+              break
+    if(len(a) != limit):
+        for i in range (marker, len(flag)):
+            a.append(flag[marker])
+            marker +=1
+    return a
+        
+        
+        
+          
+            
+            
+        
+        
 
 
+    
+            
+    
+def merge_sort(a, low, high):
+    if (low >= high):
+        c = [a[low]]        
+        return c
+    else:
+        mid = math.floor((low + high)/2)              
+    return merge(merge_sort (a, low, mid), merge_sort (a, mid + 1, high))
 
-
+a = [10,9,8,7,6,5,4,4,3,2,1,0,-1]     
+ 
+print (merge_sort(a, 0, len(a)-1))
+#print(merge([1,2,3,4,5], [6,7,8,9,10]))
 
 
